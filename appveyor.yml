@@ -14,6 +14,8 @@ install:
     vcpkg install freeimage
 
     vcpkg install wxwidgets
+
+    vcpkg install curl
 before_build:
 - cmd: >-
     cd C:\Tools\vcpkg\scripts\buildsystems\msbuild
