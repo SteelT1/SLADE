@@ -9,14 +9,12 @@ init:
 cache:
 - C:\tools\vcpkg\installed\
 - C:\Dev\Libs\wxWidgets-3.1.1
-- C:\Dev\Libs\SFML-2.5.1
 
 # Free accounts have a max of 1, but ask anyway.
 max_jobs: 4
 
 environment:
   WXWIN: C:\Dev\Libs\wxWidgets-3.1.1
-  SFML: C:\Dev\Libs\SFML-2.5.1
   APPVEYOR_SAVE_CACHE_ON_ERROR: true
 
 install:
@@ -33,21 +31,23 @@ install:
 
     vcpkg install freeimage
 
+    echo Installing SFML
+
+    vcpkg install sfml
+
+    echo Finishing up vcpkg
+
     vcpkg integrate install
 
     IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1.7z"
 
-    IF NOT EXIST "%SFML%" appveyor DownloadFile "https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc14-32-bit.zip"
-
     IF NOT EXIST "%WXWIN%" 7z x wxWidgets-3.1.1.7z -o%WXWIN% -aoa -y
-
-    IF NOT EXIST "%SFML%" 7z x SFML-2.5.1-windows-vc14-32-bit.zip -o%SFML% -aoa -y
 
 before_build:
 - cmd: >-
     cd %APPVEYOR_BUILD_FOLDER%
 
-    SET PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
+    SET PATH=%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%PATH%
 
     msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
 
