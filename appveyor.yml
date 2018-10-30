@@ -30,17 +30,17 @@ install:
 
     curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
 
+    echo Installing freeimage
+
+    vcpkg install freeimage
+
     vcpkg integrate install
 
     IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z"
 
     IF NOT EXIST "%SFML%" appveyor DownloadFile "https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc14-32-bit.zip"
 
-    IF NOT EXIST "%FREEIMAGE%" appveyor DownloadFile "http://download2.nust.na/pub4/sourceforge/f/project/fr/freeimage/Binary Distribution/3.17.0/FreeImage3170Win32Win64.zip"
-
     7z x wxWidgets-3.0.4.7z -o%WXWIN% -aoa -y
-
-    7z x FreeImage3170Win32Win64.zip -o%FREEIMAGE% -aoa -y
 
     7z x SFML-2.3.2-windows-vc14-32-bit.zip -o%SFML% -aoa -y
 
