@@ -42,7 +42,7 @@ install:
 
     7z x wxWidgets-3.0.4.7z -o%WXWIN% -aoa -y
 
-    7z x SFML-2.3.2-windows-vc14-32-bit.zip -o%SFML% -aoa -y
+    7z x SFML-2.5.1-windows-vc14-32-bit.zip -o%SFML% -aoa -y
 
 before_build:
 - cmd: >-
