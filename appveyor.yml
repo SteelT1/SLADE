@@ -39,9 +39,9 @@ install:
 
     IF NOT EXIST "%SFML%" appveyor DownloadFile "https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc14-32-bit.zip"
 
-    7z x wxWidgets-3.0.4.7z -o%WXWIN% -aoa -y
+    IF NOT EXIST "%WXWIN%" 7z x wxWidgets-3.0.4.7z -o%WXWIN% -aoa -y
 
-    7z x SFML-2.5.1-windows-vc14-32-bit.zip -o%SFML% -aoa -y
+    IF NOT EXIST "%SFML%" 7z x SFML-2.5.1-windows-vc14-32-bit.zip -o%SFML% -aoa -y
 
 before_build:
 - cmd: >-
