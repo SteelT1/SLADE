@@ -46,6 +46,7 @@ install:
 
 before_build:
 - cmd: >-
+    cd %APPVEYOR_BUILD_FOLDER%\nSET PATH=%APPVEYOR_BUILD_FOLDER%;%PATH%
     msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
 
 platform:
