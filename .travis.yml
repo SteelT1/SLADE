@@ -13,12 +13,12 @@ install:
   - ./bootstrap-vcpkg.bat
 
 before_script:
+  - vcpkg integrate install
   - vcpkg install sfml
   - vcpkg install freeimage
   - vcpkg install wxwidgets
   - vcpkg install curl
   - cd vcpkg/scripts/buildsystems/msbuild
   - curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
-  - vcpkg integrate install
   - cd %TRAVIS_BUILD_DIR%
 script: msbuild /build/msvc/SLADE.sln /p:Configuration=Release
