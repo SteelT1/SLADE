@@ -1,32 +1,65 @@
-version: 3.1.2.{build}
-configuration:
-- Release
-- Release - WinXP
+# build version format
+version: 3.1.2.beta5.{build}
+
+#enable rdp support
 init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-cache: c:\tools\vcpkg\installed\
+
+#cache
+cache:
+- C:\tools\vcpkg\installed\
+- C:\Dev\Libs\wxWidgets-3.0.4
+- C:\Dev\Libs\FreeImage
+- C:\Dev\Libs\SFML-2.5.1
+
+# Free accounts have a max of 1, but ask anyway.
+max_jobs: 4
+
+environment:
+  WXWIN: C:\Dev\Libs\wxWidgets-3.0.4
+  FREEIMAGE: C:\Dev\Libs\FreeImage
+  SFML: C:\Dev\Libs\SFML-2.5.1
+
 install:
 - cmd: >-
     cd C:\Tools\vcpkg\scripts\buildsystems\msbuild
 
-    vcpkg install sfml
-
-    vcpkg install freeimage
-
-    vcpkg install wxwidgets
+    echo Installing curl
 
     vcpkg install curl
-before_build:
-- cmd: >-
-    cd C:\Tools\vcpkg\scripts\buildsystems\msbuild
 
     curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
 
     vcpkg integrate install
+
+    IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.7z"
+
+    IF NOT EXIST "%SFML%" appveyor DownloadFile "https://www.sfml-dev.org/files/SFML-2.5.1-windows-vc14-32-bit.zip"
+
+    IF NOT EXIST "%FREEIMAGE%" appveyor DownloadFile "http://download2.nust.na/pub4/sourceforge/f/project/fr/freeimage/Binary Distribution/3.17.0/FreeImage3170Win32Win64.zip"
+
+    7z x wxWidgets-3.0.4.7z -o%WXWIN% -aoa -y
+
+    7z x FreeImage3170Win32Win64.zip -o%FREEIMAGE% -aoa -y
+
+    7z x SFML-2.3.2-windows-vc14-32-bit.zip -o%SFML% -aoa -y
+
+before_build:
+- cmd: >-
+    msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
+
+platform:
+  - Win32
+
+configuration:
+- Release
+- Release - WinXP
+
 build:
   project: build\msvc\SLADE.sln
   verbosity: normal
   parallel: true
+
 before_package:
 - cmd: >-
     git rev-parse --short %APPVEYOR_REPO_COMMIT%>%TMP%/gitshort.txt
