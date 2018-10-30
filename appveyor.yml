@@ -19,6 +19,7 @@ environment:
   WXWIN: C:\Dev\Libs\wxWidgets-3.0.4
   FREEIMAGE: C:\Dev\Libs\FreeImage
   SFML: C:\Dev\Libs\SFML-2.5.1
+  APPVEYOR_SAVE_CACHE_ON_ERROR: true
 
 install:
 - cmd: >-
