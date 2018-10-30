@@ -1,0 +1,24 @@
+language: cpp
+sudo: required
+dist: trusty
+
+matrix:
+  include:
+    - os: windows
+      dist: 1803-containers
+
+install:
+  - git clone https://github.com/Microsoft/vcpkg.git
+  - cd vcpkg
+  - ./bootstrap-vcpkg.bat
+
+before_script:
+  - vcpkg install sfml
+  - vcpkg install freeimage
+  - vcpkg install wxwidgets
+  - vcpkg install curl
+  - cd vcpkg/scripts/buildsystems/msbuild
+  - curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
+  - vcpkg integrate install
+  - cd %TRAVIS_BUILD_DIR%
+script: msbuild /build/msvc/SLADE.sln /p:Configuration=Release
