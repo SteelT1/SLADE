@@ -7,8 +7,8 @@ init:
 
 #cache
 cache:
-- C:\tools\vcpkg\installed\
-- C:\Dev\Libs\wxWidgets-3.1.1
+- C:\tools\vcpkg\installed\ -> appveyor.yml
+- C:\Dev\Libs\wxWidgets-3.1.1 -> appveyor.yml
 
 # Free accounts have a max of 1, but ask anyway.
 max_jobs: 4
@@ -45,7 +45,7 @@ install:
 
     echo Hack to automatically detect libs
 
-    xcopy C:\Tools\vcpkg\installed\x86-windows-static\lib "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC" /O /X /E /H /K /Q /Y
+    xcopy C:\Tools\vcpkg\installed\x86-windows-static\lib "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\libs" /O /X /E /H /K /Q /Y
 
 before_build:
 - cmd: >-
