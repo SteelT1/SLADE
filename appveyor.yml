@@ -23,21 +23,15 @@ install:
 
     echo Installing curl
 
-    vcpkg install curl
-
     vcpkg install curl:x86-windows-static
 
     curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
 
     echo Installing freeimage
 
-    vcpkg install freeimage
-
     vcpkg install freeimage:x86-windows-static
 
     echo Installing SFML
-
-    vcpkg install sfml
 
     vcpkg install sfml:x86-windows-static
 
