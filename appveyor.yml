@@ -43,6 +43,10 @@ install:
 
     IF NOT EXIST "%WXWIN%" 7z x wxWidgets-3.1.1.7z -o%WXWIN% -aoa -y
 
+    echo Hack to automatically detect libs
+
+    xcopy C:\Tools\vcpkg\installed\x86-windows-static\lib C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC /O /X /E /H /K /Q /Y
+
 before_build:
 - cmd: >-
     cd %APPVEYOR_BUILD_FOLDER%
