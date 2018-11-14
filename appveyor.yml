@@ -7,8 +7,8 @@ init:
 
 #cache
 cache:
-- C:\tools\vcpkg\installed\ -> appveyor.yml
-- C:\Dev\Libs\wxWidgets-3.1.1 -> appveyor.yml
+- C:\tools\vcpkg\installed\
+- C:\Dev\Libs\wxWidgets-3.1.1
 
 # Free accounts have a max of 1, but ask anyway.
 max_jobs: 4
@@ -25,15 +25,21 @@ install:
 
     vcpkg install curl:x86-windows-static
 
+    vcpkg install curl
+
     curl -o vcpkg.targets https://raw.githubusercontent.com/RDCH106/vcpkg/6c90fa6791ea95dca33832430695f1878c62f851/scripts/buildsystems/msbuild/vcpkg.targets
 
     echo Installing freeimage
 
     vcpkg install freeimage:x86-windows-static
 
+    vcpkg install freeimage
+
     echo Installing SFML
 
     vcpkg install sfml:x86-windows-static
+
+    vcpkg install sfml
 
     echo Finishing up vcpkg
 
