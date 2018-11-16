@@ -26,7 +26,7 @@ environment:
 
 install:
 - cmd: >-
-    IF NOT EXIST "%CURL%" git clone https://github.com/blackrosezy/build-libcurl-windows.git && cd %CURL% && call build.bat
+    IF NOT EXIST "%CURL%" git clone https://github.com/blackrosezy/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
 
     IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
 
