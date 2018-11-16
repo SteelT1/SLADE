@@ -26,6 +26,8 @@ environment:
 
 install:
 - cmd: >-
+   setx PATH=%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%;%PATH%
+
     curl --version
 
     echo Installing or building the required dependencies.
@@ -48,9 +50,7 @@ install:
 
 before_build:
 - cmd: >-
-    cd %APPVEYOR_BUILD_FOLDER%
-
-    SET PATH=%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%;%PATH%
+    cd %APPVEYOR_BUILD_FOLDERR
 
     msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
 
