@@ -26,13 +26,15 @@ environment:
 
 install:
 - cmd: >-
+    echo Installing or building the required dependencies.
+
+    IF NOT EXIST "%SFML%" curl -fsS -o "%SFML%" "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
+
+    IF NOT EXIST "%FREEIMAGE%" curl -fsS -o "%FREEIMAGE%" "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+
     IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
 
-    IF NOT EXIST "%WXWIN%" curl -fsS -o "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
-
-    IF NOT EXIST "%SFML%" curl -fsS -o  "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
-
-    IF NOT EXIST "%FREEIMAGE%" curl -fsS -o "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+    IF NOT EXIST "%WXWIN%" curl -fsS -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
 
     echo Cleaning up
 
