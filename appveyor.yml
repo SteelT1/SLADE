@@ -51,7 +51,7 @@ install:
 
     echo Hack to automatically detect libs
 
-    xcopy C:\Tools\vcpkg\installed\x86-windows-static\lib "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\libs" /O /X /E /H /K /Q /Y
+    xcopy C:\Tools\vcpkg\installed\x86-windows-static\lib\ "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\libs\" /O /X /E /H /K /Q /Y
 
 before_build:
 - cmd: >-
