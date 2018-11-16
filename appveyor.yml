@@ -26,7 +26,9 @@ environment:
 
 install:
 - cmd: >-
-   setx PATH "%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%;%PATH%"
+   set PATH="%PATH%;%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%;"
+
+   echo "%SFML%"
 
     curl --version
 
