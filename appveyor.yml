@@ -26,7 +26,7 @@ environment:
 
 install:
 - cmd: >-
-   set PATH="%PATH%;""%APPVEYOR_BUILD_FOLDER%;""%WXWIN%;""%SFML%;""%CURL%;""%FREEIMAGE%;"
+   set PATH=%PATH%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%
 
    echo "%SFML%"
 
