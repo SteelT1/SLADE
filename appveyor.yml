@@ -9,7 +9,7 @@ init:
 cache:
 - C:\Dev\Libs\wxWidgets-3.1.1
 - C:\Dev\Libs\CURL
-- C:\Dev\Libs\SFML
+- C:\Dev\Libs\SFML-2.5.1
 - C:\Dev\Libs\FreeImage
 
 # Free accounts have a max of 1, but ask anyway.
@@ -28,11 +28,11 @@ install:
 - cmd: >-
     IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
 
-    IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
+    IF NOT EXIST "%WXWIN%" wget "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
 
-    IF NOT EXIST "%SFML%" appveyor DownloadFile "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
+    IF NOT EXIST "%SFML%" wget "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
 
-    IF NOT EXIST "%FREEIMAGE%" appveyor DownloadFile "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+    IF NOT EXIST "%FREEIMAGE%" wget "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
 
     echo Cleaning up
 
