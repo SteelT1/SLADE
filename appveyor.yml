@@ -18,7 +18,7 @@ max_jobs: 4
 environment:
   WXWIN: C:\Dev\Libs\wxWidgets-3.1.1
   CURL: C:\Dev\Libs\CURL
-  SFML: C:\Dev\Libs\SFML
+  SFML: C:\Dev\Libs\SFML-2.5.1
   FREEIMAGE: C:\Dev\Libs\FreeImage
   SFMLZIP: SFML-2.5.1-windows-vc14-32-bit.zip
   FREEIMAGEZIP: FreeImage3180Win32Win64.zip
@@ -40,7 +40,7 @@ install:
 
     IF EXIST "%SFML%" del "%SFMLZIP%"
 
-    IF EXIST "%FREEIMAGE%" del "%FREEIMAGEZIP"
+    IF EXIST "%FREEIMAGE%" del "%FREEIMAGEZIP%"
 
 before_build:
 - cmd: >-
