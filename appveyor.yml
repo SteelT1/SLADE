@@ -13,38 +13,27 @@ max_jobs: 4
 
 environment:
   WXWIN: C:\Dev\Libs\wxWidgets-3.1.1
-  CURL: C:\Dev\Libs\CURL
+  CURL: C:\Dev\Libs\CURL\third-party\libcurl
   SFML: C:\Dev\Libs\SFML-2.5.1
   FREEIMAGE: C:\Dev\Libs\FreeImage
   SFMLZIP: SFML-2.5.1-windows-vc14-32-bit.zip
   FREEIMAGEZIP: FreeImage3180Win32Win64.zip
   WXWIN7Z: wxWidgets-3.1.1.7z
+  LIB: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib\
 
 install:
 - cmd: >-
-   set PATH=%PATH%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%
-
-   echo "%SFML%"
-
     curl --version
 
     echo Installing or building the required dependencies.
 
-    IF NOT EXIST "%SFML%" curl -fsS -L -v --create-dirs -o "%SFMLZIP%" "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
+    IF NOT EXIST "%SFML%" curl -fsS -L -v --create-dirs -o "%SFMLZIP%" "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -oC:\Dev\Libs -aoa -y
 
-    IF NOT EXIST "%FREEIMAGE%" curl -fsS -L -v --create-dirs -o "%FREEIMAGEZIP%" "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+    IF NOT EXIST "%FREEIMAGE%" curl -fsS -L -v --create-dirs -o "%FREEIMAGEZIP%" "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -oC:\Dev\Libs -aoa -y
 
     IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
 
     IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN7Z%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
-
-    echo Cleaning up
-
-    IF EXIST "%WXWIN%" del "%WXWIN7Z%"
-
-    IF EXIST "%SFML%" del "%SFMLZIP%"
-
-    IF EXIST "%FREEIMAGE%" del "%FREEIMAGEZIP%"
 
 before_build:
 - cmd: >-
