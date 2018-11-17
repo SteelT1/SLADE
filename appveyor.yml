@@ -26,13 +26,21 @@ environment:
 
 install:
 - cmd: >-
+   set PATH=%PATH%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%
+
+   echo "%SFML%"
+
+    curl --version
+
+    echo Installing or building the required dependencies.
+
+    IF NOT EXIST "%SFML%" curl -fsS -L -v --create-dirs -o "%SFMLZIP%" "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
+
+    IF NOT EXIST "%FREEIMAGE%" curl -fsS -L -v --create-dirs -o "%FREEIMAGEZIP%" "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+
     IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
 
-    IF NOT EXIST "%WXWIN%" curl -fsS "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
-
-    IF NOT EXIST "%SFML%" curl -fsS "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -o%SFML% -aoa -y
-
-    IF NOT EXIST "%FREEIMAGE%" curl -fsS "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -o%FREEIMAGE% -aoa -y
+    IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN7Z%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
 
     echo Cleaning up
 
@@ -44,10 +52,6 @@ install:
 
 before_build:
 - cmd: >-
-    cd %APPVEYOR_BUILD_FOLDER%
-
-    SET PATH=%APPVEYOR_BUILD_FOLDER%;%WXWIN%;%SFML%;%CURL%;%FREEIMAGE%;%PATH%
-
     msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
 
 platform:
