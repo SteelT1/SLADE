@@ -14,6 +14,7 @@ max_jobs: 4
 environment:
   WXWIN: C:\Dev\Libs\wxWidgets-3.1.1
   CURL: C:\Dev\Libs\CURL\third-party\libcurl
+  CURLSRC: C:\Dev\Libs\CURL\
   SFML: C:\Dev\Libs\SFML-2.5.1
   FREEIMAGE: C:\Dev\Libs\FreeImage
   SFMLZIP: SFML-2.5.1-windows-vc14-32-bit.zip
@@ -31,7 +32,9 @@ install:
 
     IF NOT EXIST "%FREEIMAGE%" curl -fsS -L -v --create-dirs -o "%FREEIMAGEZIP%" "http://downloads.sourceforge.net/freeimage/%FREEIMAGEZIP%" && 7z x %FREEIMAGEZIP% -oC:\Dev\Libs -aoa -y
 
-    IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURL% && cd %CURL% && call build.bat
+    IF NOT EXIST "%CURL%" git clone https://github.com/SteelTitanium/build-libcurl-windows.git %CURLSRC% && cd %CURLSRC% && call build.bat
+
+    cd %APPVEYOR_BUILD_FOLDER%
 
     IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN7Z%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
 
