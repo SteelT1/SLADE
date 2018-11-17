@@ -1,10 +1,6 @@
 # build version format
 version: 3.1.2.{build}
 
-#enable rdp support
-init:
-- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
 #cache
 cache:
 - C:\Dev\Libs\wxWidgets-3.1.1
@@ -78,3 +74,6 @@ after_build:
     7z a %BUILD_ARCHIVE% dist -xr!.gitignore
 
     appveyor PushArtifact %BUILD_ARCHIVE%
+
+onfinish:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
