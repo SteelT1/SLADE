@@ -36,10 +36,6 @@ install:
 
     IF NOT EXIST "%WXWIN%" appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1-headers.7z" && appveyor DownloadFile "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxMSW-3.1.1_vc140_Dev.7z" && 7z x wxWidgets-3.1.1-headers.7z -o%WXWIN% -aoa -y && 7z x wxMSW-3.1.1_vc140_Dev.7z -o%WXWIN% -aoa -y
 
-before_build:
-- cmd: >-
-    msbuild %WXWIN%\build\msw\wx_vc12.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
-
 platform:
   - Win32
 
