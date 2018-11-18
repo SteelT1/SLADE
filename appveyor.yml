@@ -34,7 +34,7 @@ install:
 
     cd %APPVEYOR_BUILD_FOLDER%
 
-    IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1-headers.7z" && curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxMSW-3.1.1_vc140_Dev.7z" && 7z x wxMSW-3.1.1_vc140_Dev.7z -o%WXWIN% -aoa -y && 7z x wxWidgets-3.1.1-headers.7z -o%WXWIN% -aoa -y
+    IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1-headers.7z" && curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxMSW-3.1.1_vc140_Dev.7z" && 7z x wxWidgets-3.1.1-headers.7z -o%WXWIN% -aoa -y && 7z x wxMSW-3.1.1_vc140_Dev.7z -o%WXWIN% -aoa -y
 
 before_build:
 - cmd: >-
