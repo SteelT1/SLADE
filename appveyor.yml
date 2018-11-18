@@ -24,6 +24,8 @@ install:
 - cmd: >-
     curl --version
 
+    SET CL=/I\C:\Dev\Libs\wxWidgets\lib\vc140_dll\mswu\
+
     echo Installing or building the required dependencies.
 
     IF NOT EXIST "%SFML%" curl -fsS -L -v --create-dirs -o "%SFMLZIP%" "https://www.sfml-dev.org/files/%SFMLZIP%" && 7z x %SFMLZIP% -oC:\Dev\Libs -aoa -y
