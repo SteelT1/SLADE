@@ -3,23 +3,21 @@ version: 3.1.2.{build}
 
 #cache
 cache:
-- C:\Dev\Libs\wxWidgets-3.1.1
+- C:\Dev\Libs\wxWidgets
 - C:\Dev\Libs\CURL
 - C:\Dev\Libs\SFML-2.5.1
 - C:\Dev\Libs\FreeImage
 
-# Free accounts have a max of 1, but ask anyway.
-max_jobs: 4
+image: Visual Studio 2017
 
 environment:
-  WXWIN: C:\Dev\Libs\wxWidgets-3.1.1
+  WXWIN: C:\Dev\Libs\wxWidgets
   CURL: C:\Dev\Libs\CURL\third-party\libcurl
   CURLSRC: C:\Dev\Libs\CURL\
   SFML: C:\Dev\Libs\SFML-2.5.1
   FREEIMAGE: C:\Dev\Libs\FreeImage
   SFMLZIP: SFML-2.5.1-windows-vc14-32-bit.zip
   FREEIMAGEZIP: FreeImage3180Win32Win64.zip
-  WXWIN7Z: wxWidgets-3.1.1.7z
   LIB: C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib\
 
 install:
@@ -36,11 +34,11 @@ install:
 
     cd %APPVEYOR_BUILD_FOLDER%
 
-    IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN7Z%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/%WXWIN7Z%" && 7z x %WXWIN7Z% -o%WXWIN% -aoa -y
+    IF NOT EXIST "%WXWIN%" curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1-headers.7z" && curl -fsS  -L -v --create-dirs -o "%WXWIN%" "https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxMSW-3.1.1_vc140_Dev.7z" && 7z x wxMSW-3.1.1_vc140_Dev.7z -o%WXWIN% -aoa -y && 7z x wxWidgets-3.1.1-headers.7z -o%WXWIN% -aoa -y
 
 before_build:
 - cmd: >-
-    msbuild %WXWIN%\build\msw\wx_vc14.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
+    msbuild %WXWIN%\build\msw\wx_vc12.sln /p:Configuration="Release" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /m
 
 platform:
   - Win32
